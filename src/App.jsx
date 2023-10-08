@@ -4,6 +4,13 @@ import { MantineProvider } from "@mantine/core";
 import Chat, { Bubble, useMessages } from '@chatui/core';
 import '@chatui/core/dist/index.css';
 
+const imgList = [
+  "https://img.3dmgame.com/uploads/images2/news/20230721/1689923603_802737.jpg",
+  "https://img.3dmgame.com/uploads/images2/news/20230721/1689923616_645981.jpg",
+  "https://img.3dmgame.com/uploads/images2/news/20230721/1689923616_974072.jpg",
+  "https://img.3dmgame.com/uploads/images2/news/20230721/1689923602_213816.jpg",
+  "https://img.3dmgame.com/uploads/images2/news/20230721/1689923492_327460.jpg"
+]
 const initialMessages = [
   {
     type: 'text',
@@ -54,9 +61,18 @@ function App() {
 
       // 模拟回复消息
       setTimeout(() => {
+        const index = Math.floor((Math.random()* imgList.length))
         appendMsg({
           type: 'text',
-          content: { text: '亲，您遇到什么问题啦？请简要描述您的问题~' },
+          content: { text: '拿去撸！' },
+          user: { avatar: '//gw.alicdn.com/tfs/TB1DYHLwMHqK1RjSZFEXXcGMXXa-56-62.svg' },
+        });
+        appendMsg({
+          type: 'image',
+          content: {
+            picUrl: imgList[index],
+          },
+          user: { avatar: '//gw.alicdn.com/tfs/TB1DYHLwMHqK1RjSZFEXXcGMXXa-56-62.svg' },
         });
       }, 1000);
     }
