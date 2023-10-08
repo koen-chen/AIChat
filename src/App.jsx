@@ -11,10 +11,30 @@ const initialMessages = [
     user: { avatar: '//gw.alicdn.com/tfs/TB1DYHLwMHqK1RjSZFEXXcGMXXa-56-62.svg' },
   },
   {
+    type: 'text',
+    content: { text: '半夜给小主发福利！' },
+    user: { avatar: '//gw.alicdn.com/tfs/TB1DYHLwMHqK1RjSZFEXXcGMXXa-56-62.svg' },
+  },
+  {
     type: 'image',
     content: {
-      picUrl: '//img.alicdn.com/tfs/TB1p_nirYr1gK0jSZR0XXbP8XXa-300-300.png',
+      picUrl: 'https://img.3dmgame.com/uploads/images2/news/20230721/1689923473_350301.jpg',
     },
+    user: { avatar: '//gw.alicdn.com/tfs/TB1DYHLwMHqK1RjSZFEXXcGMXXa-56-62.svg' },
+  },
+  {
+    type: 'image',
+    content: {
+      picUrl: 'https://img.3dmgame.com/uploads/images2/news/20230721/1689923475_114422.jpg',
+    },
+    user: { avatar: '//gw.alicdn.com/tfs/TB1DYHLwMHqK1RjSZFEXXcGMXXa-56-62.svg' },
+  },
+  {
+    type: 'image',
+    content: {
+      picUrl: 'https://img.3dmgame.com/uploads/images2/news/20230721/1689923495_334377.jpg',
+    },
+    user: { avatar: '//gw.alicdn.com/tfs/TB1DYHLwMHqK1RjSZFEXXcGMXXa-56-62.svg' },
   },
 ];
 
