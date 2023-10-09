@@ -13,7 +13,6 @@ const user = {
 
 const initialMessages = [
   {
-    key: 1,
     type: 'text',
     content: { text: '您好，我是智能客服，能帮您解答任何政务问题~' },
     user,
@@ -32,7 +31,7 @@ function App() {
   window.msgRef = msgRef;
 
   async function askQuestion(data) {
-    const response = await fetch("http://119.3.52.11:8066/", {
+    const response = await fetch("https://119.3.52.11:8066/", {
       method: 'POST',
 
       headers: {
