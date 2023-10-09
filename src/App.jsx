@@ -24,7 +24,6 @@ const initialMessages = [
 
 function App() {
   const { messages, appendMsg, setTyping } = useMessages(initialMessages);
-  const { questionResult, setQuestionResult } = useState('')
   const [openSettings, setOpenSettings] = useState(false)
   const [temperature, setTemperature] = useState(1);
   const msgRef = useRef(null);
@@ -35,7 +34,7 @@ function App() {
   async function askQuestion(data) {
     const response = await fetch("http://119.3.52.11:8066/", {
       method: 'POST',
-      mode: 'no-cors',
+
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -45,8 +44,7 @@ function App() {
 
     if (response.ok) {
       const result = await response.json()
-      console.log('result', result)
-      setQuestionResult(result.response.data.choices.content)
+      return result.response.data.choices[0].content
     } else {
       console.log("HTTP-Error: " + response.status)
     }
@@ -62,14 +60,16 @@ function App() {
 
       setTyping(true)
 
-      await askQuestion({
+      const content = await askQuestion({
         ask: val,
         temperature
       })
 
+      setTyping(false)
+
       appendMsg({
         type: 'text',
-        content: { text: questionResult },
+        content: { text: content },
         user,
       })
     }
