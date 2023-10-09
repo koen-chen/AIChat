@@ -21,8 +21,13 @@ const initialMessages = [
 function App() {
   const { messages, appendMsg, setTyping } = useMessages(initialMessages);
   const { questionResult, setQuestionResult } = useState('')
+  const [openSettings, setOpenSettings] = useState(false)
+  const [temperature, setTemperature] = useState(1);
 
-  async function askQuestion(data = {}) {
+  async function askQuestion(data = {
+    ask: '',
+    temperature: temperature
+  }) {
     const response = await fetch("http://119.3.52.11:8066/", {
       method: 'POST',
       mode: 'no-cors',
@@ -83,8 +88,7 @@ function App() {
     setOpenSettings(false)
   }
 
-  const [openSettings, setOpenSettings] = useState(false)
-  const [temperature, setTemperature] = useState(40);
+
   return (
     <MantineProvider >
       <div className="h-full w-full p-10">
@@ -108,6 +112,7 @@ function App() {
           messages={messages}
           renderMessageContent={renderMessageContent}
           onSend={handleSend}
+          placeholder="请输入您的问题..."
         />
 
         <Modal centered opened={openSettings} onClose={handleCloseSettings} title="设置客服系统参数">
