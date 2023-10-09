@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { MantineProvider } from "@mantine/core"
 import Chat, { Bubble, useMessages } from '@chatui/core'
 import { Slider, Text, Modal } from '@mantine/core';
@@ -7,14 +7,18 @@ import '@chatui/core/dist/index.css'
 import './app.css'
 
 const user = {
-  avatar: '/avator.png'
+  avatar: '/avator.png',
+  name: '小爱'
 }
 
 const initialMessages = [
   {
+    key: 1,
     type: 'text',
-    content: { text: '您好，我是智能助理，您的生活顾问~' },
+    content: { text: '您好，我是智能客服，能帮您解答任何政务问题~' },
     user,
+    createdAt: Date.now(),
+    hasTime: true,
   }
 ];
 
@@ -23,16 +27,18 @@ function App() {
   const { questionResult, setQuestionResult } = useState('')
   const [openSettings, setOpenSettings] = useState(false)
   const [temperature, setTemperature] = useState(1);
+  const msgRef = useRef(null);
 
-  async function askQuestion(data = {
-    ask: '',
-    temperature: temperature
-  }) {
+  window.appendMsg = appendMsg;
+  window.msgRef = msgRef;
+
+  async function askQuestion(data) {
     const response = await fetch("http://119.3.52.11:8066/", {
       method: 'POST',
       mode: 'no-cors',
       headers: {
-      'Content-Type': 'application/json;charset=utf-8'
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
     })
@@ -40,7 +46,7 @@ function App() {
     if (response.ok) {
       const result = await response.json()
       console.log('result', result)
-      setQuestionResult(result)
+      setQuestionResult(result.response.data.choices.content)
     } else {
       console.log("HTTP-Error: " + response.status)
     }
@@ -55,13 +61,15 @@ function App() {
       })
 
       setTyping(true)
-      await askQuestion()
 
-      console.log(questionResult)
+      await askQuestion({
+        ask: val,
+        temperature
+      })
 
       appendMsg({
         type: 'text',
-        content: { text: '拿去撸！' },
+        content: { text: questionResult },
         user,
       })
     }
@@ -88,11 +96,11 @@ function App() {
     setOpenSettings(false)
   }
 
-
   return (
-    <MantineProvider >
-      <div className="h-full w-full p-10">
+    <MantineProvider>
+      <div className="grow px-5 lg:px-10">
         <Chat
+          elderMode
           navbar={{
             rightContent: [
               {
@@ -105,7 +113,7 @@ function App() {
               }
             ],
             title: '智能客服',
-            desc: '您的生活顾问',
+            desc: '政务系统专家',
             align: 'left',
             logo: '/logo.png'
           }}
@@ -117,7 +125,7 @@ function App() {
 
         <Modal centered opened={openSettings} onClose={handleCloseSettings} title="设置客服系统参数">
           <div className="p-10">
-            <Text size="sm" className="mb-2">回答多样性 (数值越大，多样性越大)</Text>
+            <Text size="sm" className="mb-2">回答多样性 (数值越大，多样性越高)</Text>
             <Slider
               value={temperature}
               onChange={setTemperature}
