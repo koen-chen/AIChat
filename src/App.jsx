@@ -87,41 +87,43 @@ function App() {
   const [temperature, setTemperature] = useState(40);
   return (
     <MantineProvider >
-      <Chat
-        navbar={{
-          rightContent: [
-            {
-              img: "/adjustments-horizontal.svg",
-              title: 'Applications',
-              size: 'lg',
-              onClick() {
-                setOpenSettings(true)
+      <div className="h-full w-full p-10">
+        <Chat
+          navbar={{
+            rightContent: [
+              {
+                img: "/adjustments-horizontal.svg",
+                title: 'Applications',
+                size: 'lg',
+                onClick() {
+                  setOpenSettings(true)
+                }
               }
-            }
-          ],
-          title: '智能客服',
-          desc: '您的生活顾问',
-          align: 'left',
-          logo: '/logo.png'
-        }}
-        messages={messages}
-        renderMessageContent={renderMessageContent}
-        onSend={handleSend}
-      />
+            ],
+            title: '智能客服',
+            desc: '您的生活顾问',
+            align: 'left',
+            logo: '/logo.png'
+          }}
+          messages={messages}
+          renderMessageContent={renderMessageContent}
+          onSend={handleSend}
+        />
 
-      <Modal centered opened={openSettings} onClose={handleCloseSettings} title="设置客服系统参数">
-        <div className="p-10">
-          <Text size="sm" className="mb-2">回答多样性 (数值越大，多样性越大)</Text>
-          <Slider
-            value={temperature}
-            onChange={setTemperature}
-            color="blue"
-            min={0}
-            max={1}
-            step={0.1}
-          />
-        </div>
-      </Modal>
+        <Modal centered opened={openSettings} onClose={handleCloseSettings} title="设置客服系统参数">
+          <div className="p-10">
+            <Text size="sm" className="mb-2">回答多样性 (数值越大，多样性越大)</Text>
+            <Slider
+              value={temperature}
+              onChange={setTemperature}
+              color="blue"
+              min={0}
+              max={1}
+              step={0.1}
+            />
+          </div>
+        </Modal>
+      </div>
     </MantineProvider>
   )
 }
