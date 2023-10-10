@@ -7,35 +7,18 @@
   --brand-2: #4692ff;
   --brand-3: #bad6ff;
 }
-.ChatApp,
-.MessageContainer,
-.Navbar,
-.Message .Bubble,
-.QuickReplies,
-.ChatFooter {
-  background-repeat: no-repeat;
-  background-size: cover;
+
+#root {
+  height: 100%;
 }
-.ChatApp {
+
+.chat-box {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-  background-color: #ebf3f8;
 }
-.Navbar {
+
+.navbar {
   background-color: #f5f5f5;
-}
-.Navbar .IconBtn {
-  color: #000000;
-}
-.Navbar-title {
-  color: #000000;
-}
-.Navbar-main {
-  min-height: 60px;
-}
-.QuickReplies,
-.ChatFooter {
-  background-color: #f5f5f5;
-}
-.MessageContainer {
-  padding: 20px;
+  border-bottom: 1px solid #ddd;
+
+  @apply p-5 flex items-center justify-between;
 }
