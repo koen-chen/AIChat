@@ -1,9 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
-import { TypeAnimation } from 'react-type-animation'
-import dayjs from 'dayjs'
+import { useState } from 'react'
 import { MessageThread, SendBox } from '@azure/communication-react'
-import { MantineProvider, Avatar, Image, Modal, Slider, Text, ActionIcon } from '@mantine/core'
-import { IconBrandTelegram, IconAdjustmentsHorizontal } from '@tabler/icons-react'
+import { MantineProvider, Image } from '@mantine/core'
+import { IconBrandTelegram } from '@tabler/icons-react'
+import AIMessage, { AIAccount } from './components/AIMessage'
+import Navbar from './components/Navbar'
+import Settings from './components/Settings'
+
 import "@mantine/core/styles.css"
 import './app.css'
 
@@ -34,62 +36,8 @@ const initMessages =  [
   }
 ]
 
-function AIAccount() {
-  return <Avatar variant="filled" radius="sm" src="/avator.png" />
-}
-
 function MessageLoading() {
   return <div style={{ width: 50, padding: "0 10px" }}><Image src='/loading-2.svg' fit="contain" /></div>
-}
-
-function AIMessage({ typing, message, name, time }) {
-  return (
-    <div className='flex items-center'>
-      <div className='avator'>
-        <AIAccount />
-      </div>
-      <div
-        className='lg:max-w-3xl content p-4 bg-white ml-2'
-        style={{
-          borderRadius: '10px',
-          boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px',
-          lineHeight: '1.6rem',
-          fontFamily: "'Helvetica Neue', Helvetica, 'Microsoft YaHei', '微软雅黑', Arial, sans-serif"
-        }}
-      >
-        <div className='mb-2'>
-          <span className='font-bold mr-2'>{name}</span>
-          <span className='opacity-80 text-xs'>{dayjs(time).format('MM-DD HH:mm')}</span>
-        </div>
-        {typing ?
-          <TypeAnimation
-              style={{ whiteSpace: 'pre-line' }}
-              sequence={[ message, 500 ]}
-              wrapper="span"
-              cursor={true}
-            /> : message
-          }
-      </div>
-    </div>
-  )
-}
-
-function Settings({ openSettings, handleCloseSettings, temperature, setTemperature }) {
-  return (
-   <Modal centered opened={openSettings} onClose={handleCloseSettings} title="设置客服系统参数">
-    <div className="p-10">
-      <Text size="sm" className="mb-2">回答多样性 (数值越大，多样性越高)</Text>
-      <Slider
-        value={temperature}
-        onChange={setTemperature}
-        color="blue"
-        min={0}
-        max={1}
-        step={0.1}
-      />
-    </div>
-  </Modal>
-  )
 }
 
 function SendButton() {
@@ -178,20 +126,7 @@ export default function Chat() {
     <div className='chat-box h-full'>
       <MantineProvider theme={fontTheme}>
         <div className='flex flex-col h-full'>
-          <div className='navbar'>
-            <div className='flex items-center'>
-              <div className='h-10 w-10 mr-2'><Image src="/ai.png" fit='contain' /></div>
-              <div>
-                <h1 className='text-sm font-bold'>智能客服</h1>
-                <h2 className='text-xs'>政务系统专家</h2>
-              </div>
-            </div>
-            <div>
-              <ActionIcon variant="light" onClick={() => setOpenSettings(true)}>
-                <IconAdjustmentsHorizontal stroke={1.5} />
-              </ActionIcon>
-            </div>
-          </div>
+         <Navbar setOpenSettings={setOpenSettings} />
 
           <div className='grow'>
             <MessageThread
