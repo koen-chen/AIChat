@@ -10,13 +10,13 @@ const initMessages =  [
   {
     messageType: 'chat',
     senderId: 'ai',
-    senderDisplayName: '小爱',
+    senderDisplayName: '小智',
     messageId: Math.random().toString(),
     content: '您好，我是智能客服，能帮您解答任何政务问题~',
     createdOn: new Date(),
     mine: false,
     attached: false,
-    contentType: 'text'
+    contentType: 'html'
   }
 ]
 
@@ -56,9 +56,8 @@ export default function Chat() {
   const [temperature, setTemperature] = useState(1);
 
   async function askQuestion(data) {
-    const response = await fetch("https://119.3.52.11:8066/", {
+    const response = await fetch("http://119.3.52.11:8066/", {
       method: 'POST',
-
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -89,13 +88,13 @@ export default function Chat() {
     }, {
       messageType: 'chat',
       senderId: 'ai',
-      senderDisplayName: '小爱',
+      senderDisplayName: '小智',
       messageId: aiId,
       content: <Typing />,
       createdOn: new Date(),
       mine: false,
       attached: false,
-      contentType: 'text',
+      contentType: 'html',
     }])
 
     const content = await askQuestion({
@@ -108,13 +107,13 @@ export default function Chat() {
         return {
           messageType: 'chat',
           senderId: 'ai',
-          senderDisplayName: '小爱',
+          senderDisplayName: '小智',
           messageId: Math.random().toString(),
           content: content,
           createdOn: new Date(),
           mine: false,
           attached: false,
-          contentType: 'text',
+          contentType: 'html',
         }
       } else {
         return item
@@ -133,7 +132,7 @@ export default function Chat() {
           <div className='flex flex-col h-full'>
             <div className='navbar'>
               <div className='flex items-center'>
-                <div className='h-10 w-10 mr-2'><Image src="/logo.png" fit='contain' /></div>
+                <div className='h-10 w-10 mr-2'><Image src="/ai.png" fit='contain' /></div>
                 <div>
                   <h1 className='text-sm font-bold'>智能客服</h1>
                   <h2 className='text-xs'>政务系统专家</h2>

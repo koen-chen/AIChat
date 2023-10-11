@@ -8,7 +8,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <div className="text-center mb-5 mt-10 w-full h-20">
         <img
           className="h-full inline-block"
-          src="/ai.jpg"
+          src="/logo.jpg"
         />
       </div>
 
