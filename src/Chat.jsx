@@ -50,7 +50,7 @@ export default function Chat() {
   const [temperature, setTemperature] = useState(1)
 
   async function askQuestion(data) {
-    const response = await fetch("http://119.3.52.11:8066/", {
+    const response = await fetch("https://api.ai-chat.run/v1/chat/completions", {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -89,8 +89,10 @@ export default function Chat() {
     }])
 
     const content = await askQuestion({
-      ask: msg,
-      temperature
+      model: "chatglm2-6b",
+      messages: [
+        { role: "user", content: msg }
+      ]
     })
 
     setMessages((messages) => messages.map(item => {
