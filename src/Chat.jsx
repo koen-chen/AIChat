@@ -50,7 +50,7 @@ export default function Chat() {
   const [temperature, setTemperature] = useState(1)
 
   async function askQuestion(data) {
-    const response = await fetch("https://api.ai-chat.run/v1/chat/completions", {
+    const response = await fetch("https://xiongda.mynatapp.cc/v1/chat/completions", {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
