@@ -61,7 +61,8 @@ export default function Chat() {
 
     if (response.ok) {
       const result = await response.json()
-      return result.response.choices[0].message.content.replace(/(^\\")|(\\"$)/g, "").replace(/^\"|\"$/g, '').replace(/\\n/g, '\n')
+      console.log(result)
+      return result.choices[0].message.content.replace(/(^\\")|(\\"$)/g, "").replace(/^\"|\"$/g, '').replace(/\\n/g, '\n')
     } else {
       return "我不懂您的问题，请换一个问题～"
     }
