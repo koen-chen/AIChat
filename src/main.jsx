@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import Chat from './Chat.jsx'
+import App from '@/App.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -13,7 +13,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       </div>
 
       <div className='lg:px-20 lg:pb-20 w-full h-full'>
-         <Chat />
+         <App />
       </div>
     </div>
   </React.StrictMode>

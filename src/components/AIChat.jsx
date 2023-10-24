@@ -1,7 +1,7 @@
-import { Image, ActionIcon } from '@mantine/core'
+import { Image, ActionIcon  } from '@mantine/core'
 import { IconAdjustmentsHorizontal } from '@tabler/icons-react'
 
-export default function Navbar({ setOpenSettings }) {
+function Navbar({ setOpenSettings }) {
   return (
     <div className='navbar'>
       <div className='flex items-center'>
@@ -16,6 +16,16 @@ export default function Navbar({ setOpenSettings }) {
           <IconAdjustmentsHorizontal stroke={1.5} />
         </ActionIcon>
       </div>
+    </div>
+  )
+}
+
+export default function AIChat({ children, setOpenSettings }) {
+  return (
+    <div className='flex flex-col h-full'>
+      <Navbar setOpenSettings={setOpenSettings} />
+
+      {children}
     </div>
   )
 }
