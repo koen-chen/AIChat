@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Image, ActionIcon  } from '@mantine/core'
 import { IconAdjustmentsHorizontal } from '@tabler/icons-react'
 
@@ -7,8 +8,8 @@ function Navbar({ setOpenSettings }) {
       <div className='flex items-center'>
         <div className='h-10 w-10 mr-2'><Image src="/ai.png" fit='contain' /></div>
         <div>
-          <h1 className='text-sm font-bold'>智能客服</h1>
-          <h2 className='text-xs'>政务系统专家</h2>
+          <h1 className='text-sm font-bold'>智能系统</h1>
+          <h2 className='text-xs'>AI问答专家</h2>
         </div>
       </div>
       <div>

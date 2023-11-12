@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-useless-escape */
 import { useState } from 'react'
 import { TypeAnimation } from 'react-type-animation'
 import { MessageThread, SendBox } from '@azure/communication-react'
@@ -5,7 +7,7 @@ import { useAtom } from 'jotai'
 import dayjs from 'dayjs'
 import { Avatar, Image } from '@mantine/core'
 import { IconBrandTelegram } from '@tabler/icons-react'
-import { serviceNameAtom, temperatureAtom, filterWordsAtom } from '@/stores'
+import { serviceNameAtom, temperatureAtom } from '@/stores'
 
 function MessageLoading() {
   return (
@@ -92,30 +94,21 @@ export default function AIMessages() {
   const initMessage = messageType()
   const [messages, setMessages] = useState([initMessage])
   const [temperature] = useAtom(temperatureAtom)
-  const [filterWords] = useAtom(filterWordsAtom)
   const [serviceName] = useAtom(serviceNameAtom)
 
-  const filterWordsList = filterWords !== '' ? filterWords.split('|') : []
-
-  async function askQuestion(data) {
-    const response = await fetch(`${import.meta.env.VITE_API_BASE}/v1/chat/completions`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
+  async function askQuestion(question) {
+    const response = await fetch(`${import.meta.env.VITE_API_BASE}/ask?question=${question}&temperature=${temperature}`, {
+      method: 'POST'
     })
+
+    let content = "我不懂您的问题，请换一个～"
 
     if (response.ok) {
       const result = await response.json()
-      const content = result.choices[0].message.content
+      console.log(result)
+      content = result.data.choices[0].content.replace(/^\"|\"$/g, '').replace(/\\n/g, '\n').replace(/\\\"/g, '"')
 
-      if ((filterWordsList.length > 0) && filterWordsList.some(v => content.includes(v))) {
-         return "很抱歉,我的目的是提供客观、准确的信息,并尊重各种政治观点和立场。请换一个问题"
-      } else {
-        return content.replace(/(^\\")|(\\"$)/g, "").replace(/^\"|\"$/g, '').replace(/\\n/g, '\n')
-      }
+      return content
     } else {
       return "我不懂您的问题，请换一个～"
     }
@@ -138,12 +131,7 @@ export default function AIMessages() {
       })
     ])
 
-    const content = await askQuestion({
-      model: "chatglm2-6b",
-      messages: [
-        { role: "user", content: msg }
-      ]
-    })
+    const content = await askQuestion(msg)
 
     setMessages((messages) => messages.map(item => {
       if (item.messageId == msgId) {

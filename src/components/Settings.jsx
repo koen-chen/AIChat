@@ -1,34 +1,23 @@
-import { Slider, Text, Textarea, TextInput, Drawer } from '@mantine/core'
-import { serviceNameAtom, temperatureAtom, filterWordsAtom } from '@/stores'
+/* eslint-disable react/prop-types */
+import { Slider, Text, TextInput, Drawer } from '@mantine/core'
+import { serviceNameAtom, temperatureAtom } from '@/stores'
 import { useAtom } from 'jotai'
 
 export default function Settings({ openSettings, handleCloseSettings }) {
   const [serviceName, setServiceName] = useAtom(serviceNameAtom)
   const [temperature, setTemperature] = useAtom(temperatureAtom)
-  const [filterWords, setFilterWords] = useAtom(filterWordsAtom)
 
   return (
     <Drawer
       position="right"
       opened={openSettings}
       onClose={handleCloseSettings}
-      title="设置客服系统"
+      title="设置智能系统"
     >
       <div className="py-10">
         <div className="mb-10">
-          <Text size="sm" className="mb-2">修改智能客服名称</Text>
+          <Text size="sm" className="mb-2">修改智能系统名称</Text>
           <TextInput value={serviceName} onChange={(event) => setServiceName(event.currentTarget.value)} />
-        </div>
-
-        <div className='mb-10'>
-          <Text size="sm" className="mb-2">过滤关键词</Text>
-          <Textarea
-            description="多个过滤词用竖线 ‘｜’ 分隔，例如 (战争 | 自杀)"
-            autosize
-            minRows={2}
-            value={filterWords}
-            onChange={(event) => setFilterWords(event.currentTarget.value)}
-          />
         </div>
 
         <div className='mb-10'>
