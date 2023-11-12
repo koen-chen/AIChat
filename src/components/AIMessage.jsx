@@ -105,8 +105,12 @@ export default function AIMessages() {
 
     if (response.ok) {
       const result = await response.json()
-      console.log(result)
-      content = result.data.choices[0].content.replace(/^\"|\"$/g, '').replace(/\\n/g, '\n').replace(/\\\"/g, '"')
+
+      if (result.code == 200) {
+        content = result.data.choices[0].content.replace(/^\"|\"$/g, '').replace(/\\n/g, '\n').replace(/\\\"/g, '"')
+      } else {
+        content = result.msg
+      }
 
       return content
     } else {
