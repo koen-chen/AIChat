@@ -22,7 +22,7 @@ function messageType ({
     typing = true,
     loading = false,
     messageId = Math.random().toString(),
-    content = '您好，我是智能客服，能帮您解答任何政务问题~'
+    content = '您好，我是智能AI，能帮您解答任何问题~'
   } = {}) {
   if (role == 'AI') {
     return {
